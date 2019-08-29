@@ -2,14 +2,18 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const _ = require('lodash');
 const { makeExecutableSchema } = require('graphql-tools');
+const { moviesResolvers } = require('./Resolvers/movies');
 
 // schema file
 const typeDefs = require('./Schema/schema.js');
 
-const schema = makeExecutableSchema(typeDefs);
+const resolvers = _.merge({ ...moviesResolvers });
+
+
+const executableSchema = makeExecutableSchema({ typeDefs, resolvers });
 
 var app = express();
-app.use(loggingMiddleware);
+
 app.use('/graphql', graphqlHTTP({
     schema: executableSchema,
     graphiql: true,
