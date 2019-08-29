@@ -11,6 +11,17 @@ type Movie {
     title:String!
     year:String!
     rating:String!
+    actors: [Actor]!
+}
+
+type Actor {
+    name:String!
+    birthday:String!
+    country:String!
+   
+    
+
+
 }
 `;
 

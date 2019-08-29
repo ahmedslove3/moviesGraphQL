@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const { actorsStore } = require('./actors');
 let moviesStore = [
     {
         title: "movie title",
@@ -44,6 +45,19 @@ let moviesResolvers = {
             return moviesWithRating;
         },
     },
+    Movie: {
+        actors: (parent) => {
+
+            return _.filter(actorsStore, ({ id }) => {
+
+                for (actorId of parent.actorIds) {
+                    if (actorId === id) return true;
+                }
+                return false;
+            });
+
+        }
+    }
 }
 
 module.exports = { moviesResolvers };
