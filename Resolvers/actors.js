@@ -14,7 +14,7 @@ let actorsStore = [
         name: "Someone else",
         birthday: "5th of june",
         country: "Egypt",
-        directorsIds: [1, 3]
+        directorsIds: [1, 2]
     }
 ]
 
@@ -26,7 +26,7 @@ let actorsResolvers = {
             return _.filter(directorsStore, ({ id }) => {
 
                 for (directorId of parent.directorsIds) {
-                    if (actorId === id) return true;
+                    if (directorId === id) return true;
                 }
                 return false;
             });
