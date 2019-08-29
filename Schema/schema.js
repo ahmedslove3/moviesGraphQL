@@ -19,9 +19,13 @@ type Actor {
     birthday:String!
     country:String!
    
-    
+    directors:[Director]!
+}
 
-
+type Director {
+    name:String!
+    birthday:String!
+    country:String!
 }
 `;
 

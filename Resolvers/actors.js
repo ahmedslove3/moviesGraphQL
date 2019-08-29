@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const { directorsStore } = require('./directors');
 
 let actorsStore = [
     {
@@ -17,4 +18,26 @@ let actorsStore = [
     }
 ]
 
-module.exports = { actorsStore };
+let actorsResolvers = {
+    Actor: {
+
+        directors: (parent) => {
+
+            return _.filter(directorsStore, ({ id }) => {
+
+                for (directorId of parent.directorsIds) {
+                    if (actorId === id) return true;
+                }
+                return false;
+            });
+
+        }
+    }
+}
+
+
+
+
+
+
+module.exports = { actorsResolvers, actorsStore };

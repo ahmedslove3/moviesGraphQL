@@ -3,11 +3,12 @@ const graphqlHTTP = require('express-graphql');
 const _ = require('lodash');
 const { makeExecutableSchema } = require('graphql-tools');
 const { moviesResolvers } = require('./Resolvers/movies');
+const { actorsResolvers } = require('./Resolvers/actors');
 
 // schema file
 const typeDefs = require('./Schema/schema.js');
 
-const resolvers = _.merge({ ...moviesResolvers });
+const resolvers = _.merge({ ...moviesResolvers, ...actorsResolvers });
 
 
 const executableSchema = makeExecutableSchema({ typeDefs, resolvers });
