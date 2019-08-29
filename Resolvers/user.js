@@ -43,7 +43,27 @@ let userResolvers = {
                 token: usersStore[usersStore.length - 1].token,
                 user: { ...usersStore[usersStore.length - 1], password: null }
             };
-        }
+        },
+        login: async (perent, args) => {
+            let user = _.find(usersStore, ({ username }) => {
+                return username === args.data.username;
+            });
+
+            if (!user) {
+                throw Error('User doenst exist');
+            }
+            try {
+                await bcrypt.compare(args.data.password, user.password);
+                return {
+                    token: user.token,
+                    user: { ...user, password: null }
+                };
+            } catch (e) {
+                throw Error('wrong password');
+            }
+
+
+        },
 
     },
 
