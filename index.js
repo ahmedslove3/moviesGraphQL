@@ -4,11 +4,12 @@ const _ = require('lodash');
 const { makeExecutableSchema } = require('graphql-tools');
 const { moviesResolvers } = require('./Resolvers/movies');
 const { actorsResolvers } = require('./Resolvers/actors');
+const { userResolvers } = require('./Resolvers/user');
 
 // schema file
 const typeDefs = require('./Schema/schema.js');
 
-const resolvers = _.merge({ ...moviesResolvers, ...actorsResolvers });
+const resolvers = _.merge({ ...moviesResolvers, ...actorsResolvers, ...userResolvers });
 
 
 const executableSchema = makeExecutableSchema({ typeDefs, resolvers });

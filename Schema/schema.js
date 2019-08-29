@@ -5,6 +5,25 @@ var schema = `
 type Query {
     movies(id:Int):[Movie]!
 }
+type Mutation {
+    createUser(data:UserInput): CreatedUser!
+}
+
+input UserInput{
+    username:String!
+    password:String!
+}
+type CreatedUser{
+    token:String!
+    user:User
+}
+
+type User{
+    username:String!
+    password:String
+    name:String!
+    id:Int!
+}
 
 
 type Movie {
