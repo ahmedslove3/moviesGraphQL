@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const { actorsStore } = require('./actors');
+const { isLoggedIn } = require('../Auth/auth');
 let moviesStore = [
     {
         title: "movie title",
@@ -34,6 +35,10 @@ let moviesResolvers = {
             let moviesWithRating;
 
             moviesWithRating = moviesStore.map(item => {
+                if (isLoggedIn()) {
+                    return { ...item, scoutbase_rating: _.random(9.0, 5.0) }
+                }
+                console.log('not logged in')
 
                 return { ...item, scoutbase_rating: null }
             });

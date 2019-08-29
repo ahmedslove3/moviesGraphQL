@@ -5,6 +5,7 @@ const { makeExecutableSchema } = require('graphql-tools');
 const { moviesResolvers } = require('./Resolvers/movies');
 const { actorsResolvers } = require('./Resolvers/actors');
 const { userResolvers } = require('./Resolvers/user');
+const { auth } = require('./Auth/auth');
 
 // schema file
 const typeDefs = require('./Schema/schema.js');
@@ -14,8 +15,13 @@ const resolvers = _.merge({ ...moviesResolvers, ...actorsResolvers, ...userResol
 
 const executableSchema = makeExecutableSchema({ typeDefs, resolvers });
 
-var app = express();
+const loggingMiddleware = (req, res, next) => {
+    auth(req.query.token);
+    next();
+}
 
+var app = express();
+app.use(loggingMiddleware);
 app.use('/graphql', graphqlHTTP({
     schema: executableSchema,
     graphiql: true,

@@ -32,6 +32,7 @@ type Movie {
     year:String!
     rating:String!
     actors: [Actor]!
+    scoutbase_rating:String
 }
 
 type Actor {
